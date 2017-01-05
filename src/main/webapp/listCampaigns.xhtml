@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<body>
+	<f:view contracts="#{view.locale.language}">
+		<ui:composition template="/template.xhtml">
+			<ui:define name="content">
+				<h1>#{msg['listCampaigns.my_campaigns']}</h1>
+				<h:form>
+					<h:dataTable value="#{campaignListProducer.campaigns}"
+						var="campaign">
+						<h:column>
+							<h:commandLink
+								action="#{listCampaignsController.doDeleteCampaign(campaign)}"
+								value="x" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">#{msg['listCampaigns.name']}</f:facet>
+							<h:outputText value="#{campaign.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">#{msg['listCampaigns.target_amount']}</f:facet>
+							<h:outputText value="#{campaign.targetAmount}">
+								<f:convertNumber type="currency" currencyCode="EUR" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">#{msg['listCampaigns.donated_so_far']}</f:facet>
+							<h:outputText value="#{campaign.amountDonatedSoFar}">
+								<f:convertNumber type="currency" currencyCode="EUR" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<h:commandLink
+								action="#{listCampaignsController.doEditCampaign(campaign)}"
+								value="#{msg['listCampaigns.edit']}" />
+						</h:column>
+						<h:column>
+							<h:commandLink
+								action="#{listCampaignsController.doListDonations(campaign)}"
+								value="#{msg['listCampaigns.list_donations']}" />
+						</h:column>
+						<h:column>
+							<h:commandLink
+								action="#{listCampaignsController.doEditDonationForm(campaign)}"
+								value="#{msg['listCampaigns.form']}" />
+						</h:column>
+					</h:dataTable>
+					<h:commandButton
+						action="#{listCampaignsController.doAddCampaign()}"
+						value="#{msg['listCampaigns.add_campaign']}" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</body>
+</html>
