@@ -17,6 +17,8 @@ public class ListCampaignsController implements Serializable {
 
 	@Inject
 	private CampaignProducer campaignProducer;
+	
+	private Campaign campaignToDelete;
 
 	public String doAddCampaign() {
 		System.out.println("Add campaign");
@@ -43,7 +45,12 @@ public class ListCampaignsController implements Serializable {
 	}
 
 	public void doDeleteCampaign(Campaign campaign) {
-		System.out.println("Delete campaign " + campaign);
+		this.campaignToDelete=campaign;
+		System.out.println("Campaign marked for deletion " + campaign);
+	}
+	
+	public void commitDeleteCampaign() {
+		System.out.println("Delete campaign not yet implemented");
 	}
 
 }
